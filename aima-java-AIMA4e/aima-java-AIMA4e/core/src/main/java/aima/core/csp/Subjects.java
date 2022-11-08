@@ -34,9 +34,9 @@ public class Subjects {
                         horas,
                         horas
                 },
-//                BasicConstraint.newNotEqualConstraint("PI", "POO"),
-//                BasicConstraint.newNotEqualConstraint("PI", "ED"),
-//                BasicConstraint.newNotEqualConstraint("CalcA", "CalcB"),
+                BasicConstraint.newNotEqualConstraint("PI", "POO"),
+                BasicConstraint.newNotEqualConstraint("PI", "ED"),
+                BasicConstraint.newNotEqualConstraint("CalcA", "CalcB"),
                 createSubjectConstraint("PI", "POO"),
                 createSubjectConstraint("PI","ED"));
     }
