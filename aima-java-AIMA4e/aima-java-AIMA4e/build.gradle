@@ -1,0 +1,88 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.6'
+}
+
+allprojects {
+    version = '4.0-SNAPSHOT'
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    // all projects must be compatible with the java version specified here
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+}
+
+project(':') {
+    dependencies {
+        compile project(':gui')
+    }
+}
+
+project(':core') {
+}
+
+project(':extra') {
+	apply plugin: 'antlr'
+    dependencies {
+        antlr "org.antlr:antlr4:4.5.3"
+        compile project(":core")
+    }
+    
+    generateGrammarSource {
+        maxHeapSize = "64m"
+        arguments += ["-visitor", "-long-messages"]
+    }
+}
+
+project(':gui') {
+    dependencies {
+        compile project(":extra")
+        compile group: 'de.jensd', name: 'fontawesomefx', version: '8.2'
+        compile group: 'org.controlsfx', name: 'controlsfx', version: '8.20.8'
+    }
+}
+
+project(':test') {
+    dependencies {
+        compile project(":extra")
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
+	test {
+		// set heap size for the test JVM(s)
+		minHeapSize = "128m"
+		maxHeapSize = "1024m"
+		
+		testLogging.showStandardStreams = true
+		testLogging.showExceptions = true
+		 
+		afterTest { descriptor, result ->
+			if (result.getResultType() == TestResult.ResultType.FAILURE) {
+				logger.lifecycle("FAILED test: " + descriptor)
+			}
+  		}
+  		
+  		onOutput { descriptor, event ->
+			logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+		}
+	}
+	
+	tasks.withType(Test) {
+        scanForTestClasses = false
+        include "**/*Test.class"
+    }
+}
+
+task AIMADemoApp(type: JavaExec, dependsOn: classes) {
+    main = 'aima.gui.app.AIMADemoApp'
+    classpath = files(sourceSets.main.output, configurations.runtime)
+}
+

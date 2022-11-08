@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="704.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aima.gui.demo.search.tree.TreeSearchController">
+   <center>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="hiddenSplitter" BorderPane.alignment="CENTER">
+        <items>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <SplitPane dividerPositions="0.45" prefHeight="200.0" prefWidth="200.0" styleClass="hiddenSplitter" BorderPane.alignment="CENTER">
+                     <items>
+                        <AnchorPane fx:id="problemPane" styleClass="contentPane" />
+                        <AnchorPane fx:id="searchAlgoPane" styleClass="contentPane" />
+                     </items>
+                  </SplitPane>
+               </center>
+            </BorderPane>
+            <AnchorPane prefHeight="200.0" prefWidth="1024.0">
+                <children>
+                    <SplitPane dividerPositions="0.45, 0.72" prefHeight="200.0" prefWidth="200.0" styleClass="hiddenSplitter" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <items>
+                            <AnchorPane fx:id="stateSpaceInfo" prefHeight="400.0" prefWidth="224.0" styleClass="contentPane" />
+                            <AnchorPane fx:id="searchSpaceInfo" prefHeight="200.0" prefWidth="200.0" styleClass="contentPane" />
+                            <AnchorPane fx:id="frontierInfo" prefHeight="200.0" prefWidth="200.0" styleClass="contentPane" />
+                        </items>
+                    </SplitPane>
+                </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </center>
+</BorderPane>
